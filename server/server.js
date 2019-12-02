@@ -46,7 +46,25 @@ app.post('/api/todo', (req, res) => {
 });
 
 // CREATE TODO PUT
-app.put('/api/todo', (req, res) => {});
+app.put('/api/todo/:id', (req, res) => {
+    const taskUpdate = req.body;
+    // {
+    //     complete: Boolean,
+    // }
+    const taskId = req.params.id;
+    const queryText = `UPDATE "todo" SET "complete"=$1 WHERE "id"=$2;`;
+
+    pool.query(queryText, [taskUpdate.complete, taskId])
+        .then((response) => {
+            console.log(response);
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log('Error with PUT: ', err);
+            res.sendStatus(500);
+        });
+
+});
 
 app.listen(PORT, () => {
     console.log('Server running on ', PORT);

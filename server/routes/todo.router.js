@@ -22,6 +22,7 @@ router.post('/', (req, res) => {
     // {
     //     text: 'string',
     // }
+    // setting default completion
     newTask.complete = false;
     const queryText = `INSERT INTO "todo" ("task", "complete")
     VALUES ($1, $2);`;

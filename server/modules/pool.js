@@ -8,7 +8,7 @@ if (process.env.DATABASE_URL) {
     config = {
         host: 'localhost',
         port: 5432,
-        database: 'weekend9-to-do-list',
+        database: 'weekend9-to-do-app',
         max: 10,
         idleTimeoutMillis: 30000,
     }

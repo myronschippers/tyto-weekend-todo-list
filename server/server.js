@@ -24,7 +24,26 @@ app.get('/api/todo', (req, res) => {
 });
 
 // CREATE TODO POST
-app.post('/api/todo', (req, res) => {});
+app.post('/api/todo', (req, res) => {
+    const newTask = req.body;
+    // {
+    //     text: 'string',
+    // }
+    newTask.complete = false;
+    const queryText = `INSERT INTO "todo" ("task", "complete")
+    VALUES ($1, $2);`;
+
+    pool.query(queryText, [newTask.text, newTask.complete])
+        .then((response) => {
+            console.log(response);
+            res.sendStatus(201);
+        })
+        .catch((err) => {
+            console.log('Error with POST: ', err);
+            res.sendStatus(500);
+        });
+
+});
 
 // CREATE TODO PUT
 app.put('/api/todo', (req, res) => {});

@@ -59,4 +59,20 @@ router.put('/:id', (req, res) => {
 
 });
 
+router.delete('/:id', (req, res) => {
+    const taskId = req.params.id;
+    const queryText = `DELETE FROM "todo" WHERE "id"=$1;`;
+
+    pool.query(queryText, [taskId])
+        .then((response) => {
+            console.log(response);
+            res.sendStatus(200);
+        })
+        .catch((err) => {
+            console.log('Error with DELETE: ', err);
+            res.sendStatus(500);
+        });
+
+});
+
 module.exports = router;
